@@ -1,28 +1,23 @@
 <script>
   import Form from '../components/FormComponent.vue'
   import List from '../components/ListComponent.vue'
+  import { mapState, mapActions } from 'vuex'
 
   export default {
     components: {
       Form,
       List,
     },
-    data() {
-      return {
-        notes: [
-          {
-            title: 'Изучить vueJS',
-            tags: 'Срочно важно'
-          }
-        ]
-      }
+    computed: {
+      ...mapState(['notes'])
     },
     methods: {
+      ...mapActions(['addNote', 'removeNote']),
       handleSubmit(note) {
-        this.notes.push(note)
+        this.addNote(note)
       },
       handleRemove(index) {
-        this.notes.splice(index, 1)
+        this.removeNote(index)
       },
     }
   }
